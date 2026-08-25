@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Mission 08 | A Letter For You ❤️</title>
+
+
+<style>
+
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,80,170,.16),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(120,70,255,.14),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #070711,
+            #130817,
+            #080611
+        );
+
+    color:white;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+
+/* ==========================================
+   STAR BACKGROUND
+========================================== */
+
+.stars{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
+
+    background-size:32px 32px;
+
+    opacity:.18;
+
+    animation:
+        starsMove 25s linear infinite;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+}
+
+
+@keyframes starsMove{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(300px);
+    }
+
+}
+
+
+/* ==========================================
+   FLOATING HEARTS
+========================================== */
+
+#heartContainer{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+.heart{
+
+    position:absolute;
+
+    bottom:-50px;
+
+    opacity:0;
+
+    animation:
+        floatHeart linear forwards;
+
+}
+
+
+@keyframes floatHeart{
+
+    0%{
+
+        transform:
+            translateY(0)
+            scale(.6)
+            rotate(0deg);
+
+        opacity:0;
+
+    }
+
+    15%{
+
+        opacity:.7;
+
+    }
+
+    80%{
+
+        opacity:.6;
+
+    }
+
+    100%{
+
+        transform:
+            translateY(-110vh)
+            scale(1.2)
+            rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* ==========================================
+   MAIN
+========================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:700px;
+
+    margin:auto;
+
+    min-height:100vh;
+
+    padding:
+        35px 18px 70px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+/* ==========================================
+   MISSION BADGE
+========================================== */
+
+.missionBadge{
+
+    margin-top:10px;
+
+    padding:
+        8px 20px;
+
+    border-radius:30px;
+
+    border:
+        1px solid
+        rgba(255,120,190,.4);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:#ff9bd1;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    letter-spacing:4px;
+
+    box-shadow:
+        0 0 20px
+        rgba(255,60,160,.12);
+
+}
+
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.title{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    font-size:42px;
+
+    color:#ff79c7;
+
+    text-shadow:
+        0 0 10px rgba(255,70,170,.8),
+        0 0 35px rgba(255,70,170,.35);
+
+}
+
+
+.subtitle{
+
+    margin-top:12px;
+
+    text-align:center;
+
+    color:#d6c7d5;
+
+    font-size:16px;
+
+    line-height:1.6;
+
+}
+
+
+/* ==========================================
+   ENVELOPE
+========================================== */
+
+.envelopeArea{
+
+    margin-top:75px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+.envelope{
+
+    position:relative;
+
+    width:260px;
+
+    height:180px;
+
+    cursor:pointer;
+
+    transition:
+        transform .35s ease;
+
+}
+
+
+.envelope:hover{
+
+    transform:
+        translateY(-8px)
+        scale(1.03);
+
+}
+
+
+/* Envelope body */
+
+.envelopeBody{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4aa9,
+            #b72cff
+        );
+
+    box-shadow:
+
+        0 20px 50px
+        rgba(0,0,0,.4),
+
+        0 0 35px
+        rgba(255,60,180,.35);
+
+}
+
+
+/* Envelope bottom folds */
+
+.envelopeBody::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:0;
+    height:0;
+
+    border-left:
+        130px solid transparent;
+
+    border-right:
+        130px solid transparent;
+
+    border-bottom:
+        95px solid rgba(110,15,130,.28);
+
+}
+
+
+/* Flap */
+
+.flap{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:0;
+    height:0;
+
+    border-left:
+        130px solid transparent;
+
+    border-right:
+        130px solid transparent;
+
+    border-top:
+        100px solid #ff8bd2;
+
+    transform-origin:
+        top center;
+
+    transition:
+        transform .7s ease;
+
+    z-index:4;
+
+}
+
+
+/* Heart */
+
+.envelopeHeart{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size:48px;
+
+    z-index:5;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,255,255,.8)
+        );
+
+    transition:
+        .4s;
+
+}
+
+
+.envelope:hover .envelopeHeart{
+
+    transform:
+        translate(-50%,-50%)
+        scale(1.12);
+
+}
+
+
+/* ==========================================
+   TAP TEXT
+========================================== */
+
+.tapText{
+
+    margin-top:25px;
+
+    color:#ff9bd1;
+
+    font-size:16px;
+
+    animation:
+        pulse 1.6s infinite;
+
+}
+
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:.55;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+}
+
+
+/* ==========================================
+   LETTER
+========================================== */
+
+.letterCard{
+
+    display:none;
+
+    width:100%;
+
+    margin-top:45px;
+
+    padding:
+        38px 32px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,250,247,.98),
+            rgba(255,235,245,.97)
+        );
+
+    color:#401c30;
+
+    box-shadow:
+
+        0 25px 80px
+        rgba(0,0,0,.55),
+
+        0 0 40px
+        rgba(255,70,170,.18);
+
+    text-align:left;
+
+    animation:
+        letterAppear .9s ease;
+
+}
+
+
+@keyframes letterAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.letterTop{
+
+    text-align:center;
+
+    font-size:38px;
+
+    margin-bottom:20px;
+
+}
+
+
+.letterTitle{
+
+    text-align:center;
+
+    color:#a52d68;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size:27px;
+
+    margin-bottom:28px;
+
+}
+
+
+#letterText{
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:18px;
+
+    line-height:2;
+
+    white-space:pre-line;
+
+}
+
+
+/* ==========================================
+   SIGNATURE
+========================================== */
+
+#signature{
+
+    display:none;
+
+    margin-top:30px;
+
+    padding-top:22px;
+
+    border-top:
+        1px solid
+        rgba(120,40,80,.2);
+
+    color:#733252;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size:19px;
+
+    line-height:1.8;
+
+}
+
+
+#signature strong{
+
+    color:#bd3f78;
+
+    font-size:24px;
+
+}
+
+
+/* ==========================================
+   CONTINUE BUTTON
+========================================== */
+
+#continueBtn{
+
+    display:none;
+
+    margin:
+        35px auto 0;
+
+    padding:
+        15px 30px;
+
+    border:none;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3e9f,
+            #c52cff
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,50,160,.35);
+
+    transition:.3s;
+
+}
+
+
+#continueBtn:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.04);
+
+    box-shadow:
+        0 15px 45px
+        rgba(255,50,160,.6);
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:600px){
+
+    .container{
+
+        padding:
+            30px 15px 60px;
+
+    }
+
+    .title{
+
+        font-size:34px;
+
+    }
+
+    .subtitle{
+
+        font-size:14px;
+
+    }
+
+    .envelope{
+
+        width:220px;
+
+        height:150px;
+
+    }
+
+    .flap{
+
+        border-left-width:110px;
+
+        border-right-width:110px;
+
+        border-top-width:85px;
+
+    }
+
+    .envelopeBody::before{
+
+        border-left-width:110px;
+
+        border-right-width:110px;
+
+        border-bottom-width:80px;
+
+    }
+
+    .letterCard{
+
+        padding:
+            30px 22px;
+
+    }
+
+    .letterTitle{
+
+        font-size:24px;
+
+    }
+
+    #letterText{
+
+        font-size:17px;
+
+        line-height:1.9;
+
+    }
+
+    #continueBtn{
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     BACKGROUND
+========================================== -->
+
+<div class="stars"></div>
+
+<div id="heartContainer"></div>
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<div class="container">
+
+
+    <div class="missionBadge">
+
+        MISSION 08
+
+    </div>
+
+
+    <h1 class="title">
+
+        💌 A Letter For You
+
+    </h1>
+
+
+    <p class="subtitle">
+
+        Some things are easier to write<br>
+        than to say... ❤️
+
+    </p>
+
+
+    <!-- ======================================
+         ENVELOPE
+    ======================================= -->
+
+    <div class="envelopeArea">
+
+
+        <div
+            class="envelope"
+            id="envelope">
+
+
+            <div class="envelopeBody"></div>
+
+
+            <div
+                class="flap"
+                id="flap">
+            </div>
+
+
+            <div class="envelopeHeart">
+
+                ❤️
+
+            </div>
+
+
+        </div>
+
+
+        <p
+            class="tapText"
+            id="tapText">
+
+            Tap the envelope to open it 💌
+
+        </p>
+
+
+    </div>
+
+
+    <!-- ======================================
+         LETTER
+    ======================================= -->
+
+    <div
+        class="letterCard"
+        id="letterCard">
+
+
+        <div class="letterTop">
+
+            💗
+
+        </div>
+
+
+        <h2 class="letterTitle">
+
+            Dear Bachuu...
+
+        </h2>
+
+
+        <div id="letterText"></div>
+
+
+        <div id="signature">
+
+            With all my love,<br>
+
+            <strong>
+                Himani ❤️
+            </strong>
+
+        </div>
+
+
+        <button
+            id="continueBtn">
+
+            Continue to the Finale 🎂❤️
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="mission8.js"></script>
+
+
+</body>
+
+</html>

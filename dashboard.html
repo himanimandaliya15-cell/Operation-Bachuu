@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>🚀 Operation Bachuu</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:#050816;
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+padding:25px;
+
+}
+
+/* Animated Background */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+radial-gradient(circle at 20% 30%,rgba(0,255,255,.08),transparent 30%),
+radial-gradient(circle at 80% 70%,rgba(0,150,255,.08),transparent 35%),
+radial-gradient(circle at center,rgba(255,255,255,.03),transparent 60%);
+
+animation:bgMove 12s linear infinite;
+
+z-index:-2;
+
+}
+
+@keyframes bgMove{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-30px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.stars{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background-image:
+radial-gradient(white 1px,transparent 1px);
+
+background-size:30px 30px;
+
+opacity:.18;
+
+animation:starsMove 30s linear infinite;
+
+z-index:-1;
+
+}
+
+@keyframes starsMove{
+
+from{
+transform:translateY(0);
+}
+
+to{
+transform:translateY(500px);
+}
+
+}
+
+.container{
+
+max-width:520px;
+
+margin:auto;
+
+}
+
+.title{
+
+font-size:34px;
+
+text-align:center;
+
+color:#00ffe5;
+
+text-shadow:
+0 0 12px #00ffe5,
+0 0 30px #00ffe5;
+
+margin-top:20px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+margin-top:10px;
+
+opacity:.85;
+
+font-size:15px;
+
+letter-spacing:1px;
+
+}
+
+.levelBox{
+
+margin-top:30px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.12);
+
+border-radius:20px;
+
+padding:18px;
+
+backdrop-filter:blur(12px);
+
+box-shadow:
+0 0 18px rgba(0,255,255,.08);
+
+}
+
+.levelText{
+
+text-align:center;
+
+font-size:17px;
+
+font-weight:bold;
+
+margin-bottom:15px;
+
+color:#00ffe5;
+
+}
+
+.progress{
+
+width:100%;
+
+height:14px;
+
+background:#20263d;
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.fill{
+
+height:100%;
+
+width:10%;
+
+background:linear-gradient(
+90deg,
+#00ffd5,
+#00bfff);
+
+border-radius:30px;
+
+transition:.8s;
+
+}
+
+#progressText{
+
+margin-top:10px;
+
+text-align:center;
+
+font-size:14px;
+
+opacity:.85;
+
+}
+
+#missionContainer{
+
+margin-top:30px;
+
+}
+.card{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px;
+
+margin-bottom:18px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(12px);
+
+transition:.35s;
+
+cursor:pointer;
+
+box-shadow:
+0 0 12px rgba(0,255,255,.05);
+
+}
+
+.card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 0 20px rgba(0,255,255,.35);
+
+border-color:#00ffe5;
+
+}
+
+.card:active{
+
+transform:scale(.98);
+
+}
+
+.left h2{
+
+font-size:20px;
+
+margin-bottom:6px;
+
+}
+
+.left p{
+
+font-size:14px;
+
+opacity:.8;
+
+}
+
+.right{
+
+font-size:22px;
+
+font-weight:bold;
+
+color:#00ffe5;
+
+}
+
+.status{
+
+background:#00ffd5;
+
+color:#03111d;
+
+padding:5px 12px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:bold;
+
+box-shadow:0 0 12px #00ffd5;
+
+}
+
+.locked{
+
+opacity:.45;
+
+filter:grayscale(100%);
+
+pointer-events:none;
+
+}
+
+.locked .right{
+
+color:#888;
+
+}
+
+#unlockPopup{
+
+position:fixed;
+
+top:-120px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:#00ffe5;
+
+color:#02111b;
+
+padding:15px 28px;
+
+border-radius:40px;
+
+font-weight:bold;
+
+box-shadow:0 0 25px #00ffe5;
+
+transition:.6s;
+
+z-index:9999;
+
+}
+
+#unlockPopup.show{
+
+top:30px;
+
+}
+
+footer{
+
+margin-top:40px;
+
+text-align:center;
+
+opacity:.7;
+
+font-size:13px;
+
+letter-spacing:1px;
+
+}
+
+a{
+
+text-decoration:none;
+
+color:inherit;
+
+display:block;
+
+}
+
+@media(max-width:600px){
+
+.title{
+
+font-size:28px;
+
+}
+
+.left h2{
+
+font-size:17px;
+
+}
+
+.left p{
+
+font-size:13px;
+
+}
+
+.card{
+
+padding:16px;
+
+}
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+
+<h1 class="title">
+🚀 OPERATION BACHUU
+</h1>
+
+<p class="subtitle">
+Mission Control • Agent Hetav ❤️
+</p>
+
+<div class="levelBox">
+
+<div class="levelText">
+
+LEVEL 1 • Birthday Mission
+
+</div>
+
+<div class="progress">
+
+<div
+class="fill"
+id="progressFill">
+
+</div>
+
+</div>
+
+<p id="progressText">
+
+Mission Progress : 0%
+
+</p>
+
+</div>
+
+<div id="missionContainer">
+  <a href="mission.html" id="mission1Link">
+<div class="card" id="mission1">
+
+<div class="left">
+<h2>🛰 Mission 01</h2>
+<p>Access Love Files</p>
+</div>
+
+<div class="right">
+<span class="status">NEW</span>
+</div>
+
+</div>
+</a>
+
+<div class="card locked" id="mission2">
+<div class="left">
+<h2>❤️ Mission 02</h2>
+<p>Our Story</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission3">
+<div class="left">
+<h2>📸 Mission 03</h2>
+<p>Memory Vault</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission4">
+<div class="left">
+<h2>🎾 Mission 04</h2>
+<p>Tennis Challenge</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission5">
+<div class="left">
+<h2>🏍 Mission 05</h2>
+<p>Dream Garage</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission6">
+<div class="left">
+<h2>🎧 Mission 06</h2>
+<p>Producer Studio</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission7">
+<div class="left">
+<h2>😂 Mission 07</h2>
+<p>Love Quiz</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission8">
+<div class="left">
+<h2>💌 Mission 08</h2>
+<p>Secret Letter</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+<div class="card locked" id="mission9">
+<div class="left">
+<h2>🎂 Mission 09</h2>
+<p>Birthday Finale</p>
+</div>
+
+<div class="right">🔒</div>
+</div>
+
+</div>
+
+<div id="unlockPopup">
+
+✨ NEW MISSION UNLOCKED ✨
+
+</div>
+
+<footer>
+
+Made with ❤️ by Himani
+
+</footer>
+
+<script src="dashboard.js"></script>
+
+</div>
+
+
+</body>
+
+</html>

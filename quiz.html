@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Mission 7 | Love Quiz ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:
+        radial-gradient(circle at 20% 20%, #3b123f 0%, transparent 35%),
+        radial-gradient(circle at 80% 80%, #21133d 0%, transparent 35%),
+        linear-gradient(135deg,#080612,#160b1c,#090612);
+
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================================= */
+/* FLOATING HEART BACKGROUND */
+/* ================================= */
+
+#hearts{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+.floating-heart{
+    position:absolute;
+    bottom:-50px;
+    opacity:0;
+    animation:floatHeart linear forwards;
+}
+
+@keyframes floatHeart{
+
+    0%{
+        transform:translateY(0) scale(.7) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.8;
+    }
+
+    80%{
+        opacity:.8;
+    }
+
+    100%{
+        transform:
+            translateY(-110vh)
+            scale(1.2)
+            rotate(360deg);
+
+        opacity:0;
+    }
+}
+
+
+/* ================================= */
+/* MAIN CONTAINER */
+/* ================================= */
+
+.quiz-container{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px 18px;
+}
+
+
+/* ================================= */
+/* SCREEN */
+/* ================================= */
+
+.screen{
+    width:100%;
+    max-width:700px;
+
+    text-align:center;
+
+    animation:screenIn .7s ease;
+}
+
+.hidden{
+    display:none !important;
+}
+
+@keyframes screenIn{
+
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+
+/* ================================= */
+/* INTRO */
+/* ================================= */
+
+.mission-number{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border:1px solid rgba(255,120,200,.5);
+
+    border-radius:30px;
+
+    color:#ff9ddd;
+
+    font-size:14px;
+    letter-spacing:3px;
+
+    margin-bottom:25px;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+
+.heart-icon{
+
+    font-size:80px;
+
+    margin-bottom:15px;
+
+    animation:heartbeat 1.5s infinite;
+
+    filter:drop-shadow(0 0 20px #ff4fa3);
+
+}
+
+@keyframes heartbeat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.18);
+    }
+
+}
+
+
+h1{
+
+    font-size:52px;
+
+    color:#ff75bd;
+
+    text-shadow:
+        0 0 10px #ff3d9d,
+        0 0 30px rgba(255,60,160,.5);
+
+    letter-spacing:2px;
+
+    margin-bottom:15px;
+
+}
+
+
+.subtitle{
+
+    font-size:25px;
+
+    color:#ffd5ed;
+
+    margin-bottom:25px;
+
+}
+
+
+.small-text{
+
+    color:#bfaebe;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+
+}
+
+
+/* ================================= */
+/* BUTTON */
+/* ================================= */
+
+button{
+
+    border:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+
+    border-radius:40px;
+
+    padding:16px 38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3d9d,
+            #ff72c0
+        );
+
+    box-shadow:
+        0 8px 30px rgba(255,50,150,.35);
+
+    transition:.3s;
+
+}
+
+
+button:hover{
+
+    transform:translateY(-3px) scale(1.04);
+
+    box-shadow:
+        0 12px 40px rgba(255,50,150,.55);
+
+}
+
+
+button:active{
+
+    transform:scale(.95);
+
+}
+
+
+/* ================================= */
+/* QUIZ HEADER */
+/* ================================= */
+
+.quiz-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    color:#ffc8e5;
+
+    font-size:16px;
+
+}
+
+
+/* ================================= */
+/* PROGRESS BAR */
+/* ================================= */
+
+.progress-container{
+
+    width:100%;
+
+    height:10px;
+
+    background:#291b2c;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:30px;
+
+}
+
+
+#progressBar{
+
+    width:10%;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff3d9d,
+            #ff9bd1
+        );
+
+    border-radius:20px;
+
+    transition:width .5s ease;
+
+    box-shadow:0 0 15px #ff4fa3;
+
+}
+
+
+/* ================================= */
+/* QUESTION CARD */
+/* ================================= */
+
+.question-card{
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+
+        1px solid
+        rgba(255,150,210,.2);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:28px;
+
+    padding:35px 25px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+}
+
+
+#questionEmoji{
+
+    font-size:48px;
+
+    margin-bottom:15px;
+
+}
+
+
+#question{
+
+    font-size:27px;
+
+    line-height:1.4;
+
+    color:#fff;
+
+    margin-bottom:30px;
+
+}
+
+
+/* ================================= */
+/* ANSWERS */
+/* ================================= */
+
+#answers{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
+}
+
+
+.answer{
+
+    width:100%;
+
+    padding:17px 15px;
+
+    border-radius:16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:#fff;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+
+.answer:hover{
+
+    background:
+        rgba(255,100,180,.15);
+
+    border-color:#ff65b4;
+
+    transform:translateY(-2px);
+
+}
+
+
+.answer.correct{
+
+    background:
+        rgba(40,220,130,.2);
+
+    border-color:#4dffae;
+
+    box-shadow:
+        0 0 20px rgba(40,255,150,.25);
+
+}
+
+
+.answer.wrong{
+
+    background:
+        rgba(255,60,80,.2);
+
+    border-color:#ff596a;
+
+    animation:shake .35s;
+
+}
+
+
+@keyframes shake{
+
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    25%{
+        transform:translateX(-7px);
+    }
+
+    75%{
+        transform:translateX(7px);
+    }
+
+}
+
+
+/* ================================= */
+/* FEEDBACK */
+/* ================================= */
+
+#feedback{
+
+    min-height:35px;
+
+    margin-top:20px;
+
+    font-size:18px;
+
+    color:#ffb8dd;
+
+}
+
+
+/* ================================= */
+/* RESULT SCREEN */
+/* ================================= */
+
+.result-heart{
+
+    font-size:100px;
+
+    animation:heartbeat 1.3s infinite;
+
+    filter:drop-shadow(0 0 25px #ff3d9d);
+
+}
+
+
+#finalScore{
+
+    font-size:65px;
+
+    font-weight:bold;
+
+    color:#ff79c5;
+
+    margin:20px 0;
+
+    text-shadow:
+        0 0 25px #ff3d9d;
+
+}
+
+
+#resultMessage{
+
+    font-size:21px;
+
+    line-height:1.7;
+
+    color:#ffd8ec;
+
+    margin:20px auto;
+
+    max-width:550px;
+
+}
+
+
+#resultStars{
+
+    font-size:30px;
+
+    letter-spacing:5px;
+
+    margin:25px 0 35px;
+
+}
+
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+@media(max-width:600px){
+
+    .quiz-container{
+        padding:25px 15px;
+        align-items:flex-start;
+        padding-top:70px;
+    }
+
+    h1{
+        font-size:40px;
+    }
+
+    .subtitle{
+        font-size:21px;
+    }
+
+    .heart-icon{
+        font-size:65px;
+    }
+
+    .question-card{
+        padding:28px 18px;
+    }
+
+    #question{
+        font-size:23px;
+    }
+
+    #answers{
+        grid-template-columns:1fr;
+    }
+
+    .answer{
+        font-size:16px;
+    }
+
+    #finalScore{
+        font-size:52px;
+    }
+
+}
+/* ================================= */
+/* PART 4 — RESULT SCREEN POLISH */
+/* ================================= */
+
+#resultScreen{
+    padding:20px;
+}
+
+#resultScreen h1{
+    animation:resultTitle 1s ease;
+}
+
+@keyframes resultTitle{
+
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+
+/* Result heart */
+
+.result-heart{
+    animation:
+        heartbeat 1.2s infinite,
+        resultGlow 2s infinite alternate;
+}
+
+@keyframes resultGlow{
+
+    from{
+        filter:drop-shadow(0 0 10px #ff3d9d);
+    }
+
+    to{
+        filter:
+            drop-shadow(0 0 25px #ff3d9d)
+            drop-shadow(0 0 45px #ff72c0);
+    }
+
+}
+
+
+/* Score */
+
+#finalScore{
+    animation:scorePop .8s ease;
+}
+
+@keyframes scorePop{
+
+    0%{
+        opacity:0;
+        transform:scale(.3);
+    }
+
+    70%{
+        transform:scale(1.15);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+
+/* Stars */
+
+#resultStars{
+    animation:starsAppear 1.2s ease .3s both;
+}
+
+@keyframes starsAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* Final unlock button */
+
+#continueBtn{
+
+    margin-top:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3d9d,
+            #ff8ac9
+        );
+
+    box-shadow:
+        0 0 20px rgba(255,60,160,.35);
+
+    animation:
+        unlockPulse 2s infinite;
+
+}
+
+@keyframes unlockPulse{
+
+    0%,100%{
+        box-shadow:
+            0 0 15px rgba(255,60,160,.3);
+    }
+
+    50%{
+        box-shadow:
+            0 0 35px rgba(255,60,160,.7);
+    }
+
+}
+
+#continueBtn:hover{
+
+    animation:none;
+
+    transform:
+        translateY(-4px)
+        scale(1.05);
+
+}
+
+
+/* Mobile result */
+
+@media(max-width:600px){
+
+    #resultScreen{
+        padding:10px;
+    }
+
+    .result-heart{
+        font-size:80px;
+    }
+
+    #resultScreen h1{
+        font-size:34px;
+    }
+
+    #resultMessage{
+        font-size:18px;
+    }
+
+    #resultStars{
+        font-size:26px;
+    }
+
+    #continueBtn{
+        width:100%;
+        max-width:330px;
+    }
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+<body>
+
+<!-- ================================= -->
+<!-- BACKGROUND -->
+<!-- ================================= -->
+
+<div id="hearts"></div>
+
+<!-- ================================= -->
+<!-- MAIN QUIZ -->
+<!-- ================================= -->
+
+<main class="quiz-container">
+
+    <!-- INTRO SCREEN -->
+
+    <section id="introScreen" class="screen">
+
+        <div class="mission-number">
+            MISSION 7
+        </div>
+
+        <div class="heart-icon">
+            ❤️
+        </div>
+
+        <h1>
+            LOVE QUIZ
+        </h1>
+
+        <p class="subtitle">
+            Let's see how well you know us...
+        </p>
+
+        <p class="small-text">
+            10 questions.<br>
+            One relationship.<br>
+            Let's test your memory, Bachuu. 😏❤️
+        </p>
+
+        <button id="startBtn">
+            START QUIZ ❤️
+        </button>
+
+    </section>
+
+
+    <!-- QUESTION SCREEN -->
+
+    <section id="quizScreen" class="screen hidden">
+
+        <div class="quiz-header">
+
+            <span id="questionNumber">
+                Question 1 / 10
+            </span>
+
+            <span id="scoreDisplay">
+                ❤️ 0
+            </span>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-container">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+
+        <!-- QUESTION -->
+
+        <div class="question-card">
+
+            <div id="questionEmoji">
+                ❤️
+            </div>
+
+            <h2 id="question">
+                Question goes here
+            </h2>
+
+            <div id="answers">
+
+                <!-- Answers generated by JS -->
+
+            </div>
+
+        </div>
+
+
+        <!-- FEEDBACK -->
+
+        <div id="feedback"></div>
+
+    </section>
+
+
+    <!-- RESULT SCREEN -->
+
+    <section id="resultScreen" class="screen hidden">
+
+        <div class="result-heart">
+            ❤️
+        </div>
+
+        <h1>
+            You Know My Heart ❤️ 
+        </h1>
+
+        <div id="finalScore">
+            0 / 10
+        </div>
+
+        <p id="resultMessage">
+            You know us pretty well...
+        </p>
+
+        <div id="resultStars">
+            ⭐⭐⭐⭐⭐
+        </div>
+
+        <button id="continueBtn">
+            UNLOCK MISSION 8 💌
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- ================================= -->
+<!-- AUDIO -->
+<!-- ================================= -->
+
+<audio id="correctSound"
+       src="music/correct.mp3">
+</audio>
+
+<audio id="wrongSound"
+       src="music/wrong.mp3">
+</audio>
+
+<audio id="clickSound"
+       src="music/click.mp3">
+</audio>
+
+<audio id="victorySound"
+       src="music/victory.mp3">
+</audio>
+
+
+<!-- ================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================= -->
+
+<script src="quiz.js"></script>
+
+</body>
+
+</html>

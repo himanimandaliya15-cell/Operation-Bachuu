@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission 02</title>
+
+<style>
+
+body{
+background:#050816;
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+padding:25px;
+}
+
+h1{
+color:#00ffd5;
+font-size:38px;
+}
+
+.card{
+
+background:#11162d;
+padding:25px;
+border-radius:20px;
+margin-top:40px;
+
+}
+
+#story{
+
+font-size:24px;
+line-height:1.6;
+
+}
+
+button{
+
+margin-top:30px;
+padding:15px 35px;
+border:none;
+border-radius:30px;
+background:#ff4d88;
+color:white;
+font-size:20px;
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+<body>
+
+<h1> Ⓜ️ MISSION 02 </h1>
+
+<h2>The Story Of Us</h2>
+
+<div class="card">
+
+<p id="story">
+Tap below to unlock our story...
+</p>
+
+<button onclick="nextStory()">
+
+Next 👉🏻
+
+</button>
+
+</div>
+
+<script>
+
+const pages=[
+
+"📱<br><br>One message.<br><br>One notification.<br><br>Who knew it would change everything???",
+
+"😍<br><br>Slowly...<br><br>You became my favourite person to text.",
+
+"🌍<br><br>Even when  kilometres separated us...<br><br>You always felt close to my heart.💌",
+
+"🤗<br><br>Those few times we met...<br><br>Became memories I'll always treasure.🪎",
+
+"⌛<br><br>One year and seven months later...<br><br>I still choose you.<br><br>Again.<br><br>Every single day.🫵🏻",
+
+"🎂<br><br>And today.🥳🥳🥳🥳..<br><br>It's your birthday, dearest Hetuuuu Babbyyyy ❤️"
+
+];
+
+let index=0;
+
+function nextStory() {
+
+    if (index < pages.length) {
+        document.getElementById("story").innerHTML = pages[index];
+        index++;
+    } else {
+        localStorage.setItem("mission2", "completed");
+        window.location.href = "memory.html";
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

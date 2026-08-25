@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission 01</title>
+
+<style>
+
+body{
+margin:0;
+background:#050816;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:25px;
+}
+
+h1{
+color:#00ffd5;
+font-size:34px;
+}
+
+.box{
+margin-top:40px;
+padding:20px;
+background:#11162d;
+border-radius:20px;
+}
+
+button{
+
+padding:15px 35px;
+border:none;
+border-radius:30px;
+background:#ff4d88;
+color:white;
+font-size:20px;
+margin-top:30px;
+
+}
+
+.typing{
+
+font-size:22px;
+color:#00ffd5;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+<body>
+
+<h1>🛰️ MISSION 01</h1>
+
+<h2>Access Love Files</h2>
+
+<div class="box">
+
+<p class="typing" id="typing"></p>
+
+<div id="secret" class="hidden">
+
+<h2>❤️ Confidential File Opened ❤️</h2>
+
+<p>
+Agent Hetav...
+</p>
+
+<p>
+
+You have successfully hacked into Himani's heart. <br> </br>
+
+Security Level:
+∞/10
+
+</p>
+
+<p>
+
+You are known by many secret names... <br> </br>
+
+❤️ Bachuu
+
+🫠 Battuu
+
+🐣 Dhingguu
+
+😍 Bittss
+
+🫂 Laallluuu
+
+💋 Gotttuuu
+
+🔥 Handsome
+
+🫶🏻 bittuukkrruu
+
+🤩 looovveee
+
+💌 biiitttuuuullluuuu 
+
+🥰 cuuttuuuu
+
+🐥 shoonnnuuu
+
+🥳 mooonnnuuu
+
+🐧 Pinngguuu
+
+💋 Betttuuuuu
+
+💗 Jinnnkkkuuu
+
+😍 Vaahhaaalluuu
+
+😘 Pretty Little Boy
+    
+🫠 My Favourite 
+
+🤭 Gaabbuuu
+
+💌 Kaannuuuuu🥰
+
+🫂 Gaabbuurraammm
+
+🤗 Gottuuuchhaanndd
+
+🩷 Gottyyyuuulaall 
+
+🌻 Nannuuu Sunshine 
+
+🤭 Gottuurraaammm 
+
+😂 Gabbeeesssss
+
+😆 Dhinguraaamm and many more 
+</p>
+
+<button onclick="window.location.href='story.html'">
+    Open Secret File 📂
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const text="Decrypting confidential birthday files...";
+
+let i=0;
+
+function type(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(type,60);
+
+}
+
+else{
+
+document.getElementById("secret").style.display="block";
+
+}
+
+}
+
+type();
+
+function nextMission(){
+
+alert("Mission 02 Coming Soon 🚀");
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dream Garage</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#050816;
+
+color:white;
+
+overflow:hidden;
+
+text-align:center;
+
+}
+
+#intro{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.75)),
+url("images/bike-side.jpg");
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:999;
+
+transition:1s;
+
+}
+
+#intro h1{
+
+font-size:42px;
+
+margin-bottom:20px;
+
+color:#20F7D5;
+
+text-shadow:0 0 15px cyan;
+
+}
+
+#intro p{
+
+width:85%;
+
+max-width:420px;
+
+line-height:1.6;
+
+font-size:18px;
+
+margin-bottom:35px;
+
+}
+
+#startBtn{
+
+padding:18px 45px;
+
+font-size:22px;
+
+border:none;
+
+border-radius:50px;
+
+background:#20F7D5;
+
+color:black;
+
+font-weight:bold;
+
+cursor:pointer;
+
+box-shadow:0 0 25px #20F7D5;
+
+transition:.3s;
+
+}
+
+#startBtn:hover{
+
+transform:scale(1.08);
+
+}
+
+#scan{
+
+margin-top:35px;
+
+font-size:18px;
+
+line-height:2;
+
+display:none;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+#garage{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+display:none;
+
+background:#050816;
+
+overflow-y:auto;
+
+padding:20px;
+
+}
+
+#garage h1{
+
+margin-top:20px;
+
+font-size:36px;
+
+color:#20F7D5;
+
+text-shadow:0 0 15px cyan;
+
+}
+
+#garage p{
+
+margin-top:10px;
+
+font-size:18px;
+
+line-height:1.6;
+
+}
+
+#bikeContainer{
+
+position:relative;
+
+width:100%;
+
+max-width:420px;
+
+margin:30px auto;
+
+}
+
+#bike{
+
+width:100%;
+
+border-radius:20px;
+
+box-shadow:0 0 30px rgba(32,247,213,.45);
+
+transition:.4s;
+
+}
+
+.shake{
+
+animation:shake .25s linear infinite;
+
+}
+
+@keyframes shake{
+
+0%{transform:translateX(-2px);}
+25%{transform:translateX(2px);}
+50%{transform:translateX(-2px);}
+75%{transform:translateX(2px);}
+100%{transform:translateX(0);}
+
+}
+
+.hotspot{
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #27f5e3;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 12px #27f5e3;
+    transition: transform .2s;
+}
+
+.hotspot:hover{
+    transform: scale(1.15);
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+
+}
+
+#message{
+
+width:92%;
+
+max-width:420px;
+
+margin:20px auto;
+
+padding:15px;
+
+background:#111827;
+
+border:2px solid #20F7D5;
+
+border-radius:15px;
+
+min-height:80px;
+
+font-size:17px;
+
+line-height:1.6;
+
+}
+
+#progress{
+
+margin-top:15px;
+
+font-size:18px;
+
+color:#20F7D5;
+
+font-weight:bold;
+
+}
+
+#nextBtn{
+
+display:none;
+
+margin:25px auto;
+
+padding:16px 35px;
+
+font-size:20px;
+
+font-weight:bold;
+
+background:#20F7D5;
+
+color:black;
+
+border:none;
+
+border-radius:40px;
+
+box-shadow:0 0 20px #20F7D5;
+
+cursor:pointer;
+
+}
+
+#nextBtn:hover{
+
+transform:scale(1.05);
+
+}
+
+/* ==========================================
+   SUNSET ENDING
+========================================== */
+
+#ending{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    width:100vw;
+
+    height:100vh;
+
+    background:#000;
+
+    z-index:99999;
+
+    overflow:hidden;
+
+}
+
+
+/* Sunset image */
+
+#endingImage{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center;
+
+}
+
+
+/* Dark cinematic overlay */
+
+#endingOverlay{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.72)
+        );
+
+}
+
+
+/* Ending text */
+
+#endingText{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:650px;
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    animation:
+        sunsetTextAppear
+        1.5s
+        ease
+        forwards;
+
+}
+
+
+/* Title */
+
+#endingText h1{
+
+    font-size:42px;
+
+    color:#fff3c4;
+
+    text-shadow:
+        0 0 12px #ff9d00,
+        0 0 30px rgba(255,150,0,.7);
+
+    margin-bottom:25px;
+
+}
+
+
+/* Message */
+
+#endingText p{
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:19px;
+
+    line-height:1.9;
+
+    color:#fff;
+
+    text-shadow:
+        0 2px 8px #000;
+
+    margin-bottom:30px;
+
+}
+
+
+/* Finish button */
+
+#finishBtn{
+
+    padding:
+        15px 32px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #20F7D5,
+            #00bfa5
+        );
+
+    color:#001b18;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 25px
+        rgba(32,247,213,.6);
+
+    transition:.3s;
+
+}
+
+
+#finishBtn:hover{
+
+    transform:
+        scale(1.06)
+        translateY(-3px);
+
+    box-shadow:
+        0 0 40px
+        rgba(32,247,213,.9);
+
+}
+
+
+@keyframes sunsetTextAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+    #endingText{
+
+        padding:15px;
+
+    }
+
+    #endingText h1{
+
+        font-size:32px;
+
+    }
+
+    #endingText p{
+
+        font-size:16px;
+
+        line-height:1.8;
+
+    }
+
+    #finishBtn{
+
+        width:90%;
+
+        max-width:300px;
+
+    }
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+<body>
+
+<audio id="engineSound">
+<source src="music/engine.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="inspectSound">
+<source src="music/inspect.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="victorySound">
+<source src="music/victory.mp3" type="audio/mpeg">
+</audio>
+
+<div id="intro">
+
+<h1>🏍 Garage</h1>
+
+<p>
+
+Some machines are built with metal...
+
+Some are built with passion.
+
+This one reminds me of you every single day.
+
+Let's unlock your dream garage.
+
+❤️
+
+</p>
+
+<button id="startBtn" onclick="startGarage()">
+🔑 START ENGINE
+</button>
+
+<div id="scan">
+
+<div>🔍 Scanning Rider...</div>
+
+<div id="line1" class="hidden">
+
+✔ Engineer
+
+</div>
+
+<div id="line2" class="hidden">
+
+✔ Tennis Player
+
+</div>
+
+<div id="line3" class="hidden">
+
+✔ Producer
+
+</div>
+
+<div id="line4" class="hidden">
+
+✔ Bike Lover
+
+</div>
+
+<div id="line5" class="hidden">
+
+❤️ My Favourite Person
+
+</div>
+
+<div id="line6" class="hidden">
+
+Garage Access Granted...
+
+</div>
+
+</div>
+
+</div>
+
+<div id="garage">
+
+<h1>
+
+🏍 Hetav's Garage
+
+</h1>
+
+<p>
+
+Tap every glowing point to inspect the bike.
+
+Each one hides a special message made just for you.
+
+</p>
+
+<div id="bikeContainer">
+
+<img
+
+id="bike"
+
+src="images/bike1.jpg"
+
+alt="Bike">
+
+<!-- Mirror -->
+<div class="hotspot" id="h1"
+style="top:06%; left:39%;">1</div>
+
+<!-- Headlight -->
+<div class="hotspot" id="h2"
+style="top:33%; left:60%;">2</div>
+
+<!-- Engine -->
+<div class="hotspot" id="h3"
+style="top:50%; left:20%;">3</div>
+
+<!-- Fuel Tank -->
+<div class="hotspot" id="h4"
+style="top:23%; left:20%;">4</div>
+
+<!-- Front Wheel -->
+<div class="hotspot" id="h5"
+style="top:60%; left:63%;">5</div>
+
+</div>
+
+<p id="message">
+
+<!--Press <b>START ENGINE</b> to begin your mission...-->
+
+</p>
+
+<p id="progress">
+
+0 / 5 Parts Inspected
+
+</p>
+
+<button
+    id="nextBtn"
+    onclick="showEnding()">
+
+    Continue ❤️
+
+</button>
+</div>
+
+<div id="ending" style="display:none;">
+
+<div id="endingOverlay">
+
+<img
+id="endingImage"
+src="images/ending.jpg"
+alt="Sunset">
+
+<div id="endingText">
+
+<h1>
+
+Happy Birthday,
+Hetav ❤️
+
+</h1>
+
+<p>
+
+Every road you ride...
+every dream you chase...
+every goal you achieve...
+
+I'll always be cheering for you.
+
+I hope one day I'll be sitting behind you,
+watching sunsets together,
+making countless memories.
+
+Thank you for being my favourite person.
+
+❤️
+
+</p>
+
+<button
+id="finishBtn"
+onclick="goDashboard()">
+
+🏁 Finish Journey
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let completed = 0;
+
+const inspected = {
+
+mirror:false,
+
+headlight:false,
+
+engine:false,
+
+tank:false,
+
+wheel:false
+
+};
+
+const messages = {
+
+mirror:
+"🪞 Every great rider looks ahead... I hope one day your mirror reflects me sitting behind you. ❤️",
+
+headlight:
+"💡 You always find your own road, even when nobody else believes.",
+
+engine:
+"⚙️ This engine powers your bike... but your determination powers your dreams.",
+
+tank:
+"⛽ Your passion is the fuel that keeps every dream moving forward.",
+
+wheel:
+"🛞No matter how long the road is......I'll always cheer for every kilometer you ride",
+    
+};
+
+function startGarage(){
+    
+document.getElementById("startBtn").style.display="none";
+
+document.getElementById("scan").style.display="block";
+
+const engine=document.getElementById("engineSound");
+
+engine.currentTime=0;
+
+engine.play();
+
+if(navigator.vibrate){
+
+navigator.vibrate([200,100,200]);
+
+}
+
+setTimeout(()=>{
+
+document.getElementById("line1").style.display="block";
+
+},600);
+
+setTimeout(()=>{
+
+document.getElementById("line2").style.display="block";
+
+},1200);
+
+setTimeout(()=>{
+
+document.getElementById("line3").style.display="block";
+
+},1800);
+
+setTimeout(()=>{
+
+document.getElementById("line4").style.display="block";
+
+},2400);
+
+setTimeout(()=>{
+
+document.getElementById("line5").style.display="block";
+
+},3600);
+
+setTimeout(()=>{
+
+document.getElementById("line6").style.display="block";
+
+},4000);
+
+setTimeout(()=>{
+
+document.getElementById("intro").style.display="none";
+
+document.getElementById("garage").style.display="block";
+
+showHotspots();
+
+},5000);
+
+}
+
+function showHotspots(){
+
+const bike=document.getElementById("bike");
+
+bike.classList.add("shake");
+
+setTimeout(()=>{
+
+bike.classList.remove("shake");
+
+},900);
+
+const ids=["h1","h2","h3","h4","h5"];
+
+ids.forEach((id,index)=>{
+
+setTimeout(()=>{
+
+document.getElementById(id).style.display="flex";
+
+},index*500);
+
+});
+
+document.getElementById("h1").onclick=function(){
+
+inspect("mirror","h1");
+
+};
+
+document.getElementById("h2").onclick=function(){
+
+inspect("headlight","h2");
+
+};
+
+document.getElementById("h3").onclick=function(){
+
+inspect("engine","h3");
+
+};
+
+document.getElementById("h4").onclick=function(){
+
+inspect("tank","h4");
+
+};
+
+document.getElementById("h5").onclick=function(){
+
+inspect("wheel","h5");
+
+};
+
+}
+function inspect(part,id){
+
+if(inspected[part]) return;
+
+inspected[part]=true;
+
+completed++;
+
+const sound=document.getElementById("inspectSound");
+
+sound.currentTime=0;
+
+sound.play();
+
+document.getElementById(id).innerHTML="✅";
+
+document.getElementById("message").innerHTML=messages[part];
+
+document.getElementById("progress").innerHTML=
+
+completed+" / 5 Parts Inspected";
+
+if(completed==5){
+
+setTimeout(completeMission,2000);
+
+}
+
+}
+
+function completeMission(){
+
+document.getElementById("victorySound").play();
+
+document.getElementById("message").innerHTML=
+
+"🏆 Garage Complete! You inspected every part of your dream machine. ❤️";
+
+document.getElementById("nextBtn").style.display="inline-block";
+
+localStorage.setItem("mission5","completed");
+
+}
+
+function showEnding(){
+
+    localStorage.setItem(
+        "mission5",
+        "completed"
+    );
+
+    document.getElementById("garage").style.display =
+        "none";
+
+    const ending =
+        document.getElementById("ending");
+
+    ending.style.display =
+        "block";
+
+}
+
+function goDashboard(){
+
+window.location.href="dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

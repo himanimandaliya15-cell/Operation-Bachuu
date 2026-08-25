@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FL Producer Studio | Hetav Edition</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#0b0b0b;
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+header{
+
+height:70px;
+
+background:#171717;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 20px;
+
+border-bottom:3px solid #ff9800;
+
+box-shadow:0 0 25px rgba(255,140,0,.25);
+
+}
+
+.logo{
+
+font-size:28px;
+
+font-weight:bold;
+
+color:#ff9800;
+
+text-shadow:0 0 15px orange;
+
+}
+
+.version{
+
+font-size:14px;
+
+color:#8aff8a;
+
+}
+
+.container{
+
+padding:18px;
+
+}
+
+.panel{
+
+background:#1c1c1c;
+
+border-radius:18px;
+
+padding:20px;
+
+margin-bottom:20px;
+
+box-shadow:0 0 20px rgba(255,140,0,.18);
+
+}
+
+.panel h2{
+
+color:#ff9800;
+
+margin-bottom:15px;
+
+}
+
+.display{
+
+background:#050505;
+
+color:#00ff66;
+
+font-family:monospace;
+
+padding:18px;
+
+border-radius:12px;
+
+line-height:1.8;
+
+min-height:120px;
+
+}
+
+.transport{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.transport button{
+
+padding:13px 28px;
+
+border:none;
+
+border-radius:12px;
+
+background:#ff9800;
+
+color:white;
+
+font-size:17px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.transport button:hover{
+
+box-shadow:0 0 18px orange;
+
+}
+
+.transport button:active{
+
+transform:scale(.94);
+
+}
+
+.sectionTitle{
+
+font-size:22px;
+
+color:#ff9800;
+
+margin:25px 0 15px;
+
+}
+
+.sequencer{
+
+display:grid;
+
+grid-template-columns:120px repeat(16,38px);
+
+gap:8px;
+
+align-items:center;
+
+}
+
+.track{
+
+font-weight:bold;
+
+color:#ddd;
+
+}
+
+.step{
+
+width:36px;
+
+height:36px;
+
+background:#2d2d2d;
+
+border-radius:8px;
+
+cursor:pointer;
+
+transition:.15s;
+
+border:1px solid #444;
+
+}
+
+.step.active{
+
+background:#ff9800;
+
+box-shadow:0 0 15px orange;
+
+}
+
+.playhead{
+
+outline:3px solid #00ff88;
+
+}
+.mixer{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
+margin-top:25px;
+
+}
+
+.channel{
+
+background:#242424;
+
+border-radius:15px;
+
+padding:15px;
+
+text-align:center;
+
+box-shadow:0 0 15px rgba(255,140,0,.15);
+
+}
+
+.channel h3{
+
+color:#ff9800;
+
+margin-bottom:12px;
+
+}
+
+.channel input{
+
+-webkit-appearance:slider-vertical;
+
+height:140px;
+
+}
+
+.meter{
+
+width:14px;
+
+height:90px;
+
+margin:12px auto;
+
+background:#111;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.level{
+
+width:100%;
+
+height:20%;
+
+background:linear-gradient(#00ff66,#ffee00,#ff5500);
+
+transition:.1s;
+
+}
+
+.piano{
+
+display:flex;
+
+justify-content:center;
+
+margin-top:35px;
+
+height:180px;
+
+position:relative;
+
+}
+
+.white{
+
+width:55px;
+
+height:180px;
+
+background:white;
+
+border:1px solid #444;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-end;
+
+padding-bottom:10px;
+
+color:black;
+
+font-weight:bold;
+
+cursor:pointer;
+
+user-select:none;
+
+}
+
+.white:active{
+
+background:#ffd27a;
+
+}
+
+.black{
+
+width:34px;
+
+height:110px;
+
+background:#111;
+
+margin-left:-17px;
+
+margin-right:-17px;
+
+z-index:2;
+
+border-radius:0 0 8px 8px;
+
+cursor:pointer;
+
+}
+
+.black:active{
+
+background:#ff9800;
+
+}
+
+.playlist{
+
+margin-top:30px;
+
+background:#181818;
+
+padding:18px;
+
+border-radius:15px;
+
+}
+
+.clip{
+
+height:32px;
+
+border-radius:8px;
+
+background:#ff9800;
+
+margin:10px 0;
+
+padding-left:12px;
+
+display:flex;
+
+align-items:center;
+
+font-weight:bold;
+
+}
+
+.renderPanel{
+
+display:none;
+
+margin-top:30px;
+
+background:#111;
+
+padding:20px;
+
+border-radius:15px;
+
+text-align:center;
+
+}
+
+.progress{
+
+width:100%;
+
+height:18px;
+
+background:#333;
+
+border-radius:25px;
+
+overflow:hidden;
+
+margin-top:15px;
+
+}
+
+.bar{
+
+width:0%;
+
+height:100%;
+
+background:linear-gradient(90deg,#ff9800,#ffd54f);
+
+transition:.15s;
+
+}
+
+.message{
+
+display:none;
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:18px;
+
+color:#ffd54f;
+
+}
+
+</style>
+
+<script src="./chrome-compat.js"></script>
+</head>
+
+<body style="
+margin:0;
+padding:0;
+overflow-y:auto;
+overflow-x:hidden;
+min-height:100vh;
+background:#111;
+">
+
+<header>
+
+<div class="logo">
+
+🍓 FL Producer Studio
+
+</div>
+
+<div class="version" id="status">
+
+Ready ●
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="panel">
+
+<h2>🎧 Producer Console</h2>
+
+<div class="display" id="screen">
+
+> FL Producer Studio<br>
+
+> Powered by Himani ❤️<br>
+
+> Loading Plugins...<br>
+
+> Ready.
+
+</div>
+
+<div class="transport">
+
+<button onclick="playBeat()">
+
+▶ PLAY
+
+</button>
+
+<button onclick="stopBeat()">
+
+■ STOP
+
+</button>
+
+<button onclick="toggleLoop()" id="loopBtn">
+
+🔁 LOOP OFF
+
+</button>
+
+</div>
+
+</div>
+<!-- ===================================== -->
+<!-- STEP SEQUENCER -->
+<!-- ===================================== -->
+
+<h2 class="sectionTitle">🎼 Step Sequencer</h2>
+
+<div class="panel">
+
+<div id="sequencer" class="sequencer">
+
+<!-- JavaScript builds the sequencer here -->
+
+</div>
+
+</div>
+<!-- ===================================== -->
+<!-- MIXER -->
+<!-- ===================================== -->
+
+<h2 class="sectionTitle">🎚 Mixer</h2>
+
+<div class="panel">
+
+<div class="mixer">
+
+<!-- Channel 1 -->
+<div class="channel">
+
+<h3>🥁 Kick</h3>
+
+<input type="range"
+id="vol0"
+min="0"
+max="100"
+value="100">
+
+<div class="meter">
+<div class="level" id="meter0"></div>
+</div>
+
+</div>
+
+<!-- Channel 2 -->
+<div class="channel">
+
+<h3>🥁 Snare</h3>
+
+<input type="range"
+id="vol1"
+min="0"
+max="100"
+value="100">
+
+<div class="meter">
+<div class="level" id="meter1"></div>
+</div>
+
+</div>
+
+<!-- Channel 3 -->
+<div class="channel">
+
+<h3>🎵 HiHat</h3>
+
+<input type="range"
+id="vol2"
+min="0"
+max="100"
+value="100">
+
+<div class="meter">
+<div class="level" id="meter2"></div>
+</div>
+
+</div>
+
+<!-- Channel 4 -->
+<div class="channel">
+
+<h3>🎸 Bass</h3>
+
+<input type="range"
+id="vol3"
+min="0"
+max="100"
+value="100">
+
+<div class="meter">
+<div class="level" id="meter3"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ===================================== -->
+<!-- PIANO -->
+<!-- ===================================== -->
+
+<h2 class="sectionTitle">🎹 Piano</h2>
+
+<div class="panel">
+
+<div class="piano">
+
+<div class="white" onclick="playPiano('piano1')">C</div>
+<div class="black" onclick="playPiano('piano2')"></div>
+
+<div class="white" onclick="playPiano('piano3')">D</div>
+<div class="black" onclick="playPiano('piano4')"></div>
+
+<div class="white" onclick="playPiano('piano5')">E</div>
+
+<div class="white" onclick="playPiano('piano6')">F</div>
+<div class="black" onclick="playPiano('piano7')"></div>
+
+<div class="white" onclick="playPiano('piano1')">G</div>
+<div class="black" onclick="playPiano('piano2')"></div>
+
+<div class="white" onclick="playPiano('piano3')">A</div>
+<div class="black" onclick="playPiano('piano4')"></div>
+
+<div class="white" onclick="playPiano('piano5')">B</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- PLAYLIST -->
+<!-- ===================================== -->
+
+<h2 class="sectionTitle">🎼 Playlist</h2>
+
+<div class="panel playlist">
+
+<div class="clip">🥁 Kick Pattern</div>
+
+<div class="clip">🎵 HiHat Loop</div>
+
+<div class="clip">🎸 Bass Line</div>
+
+<div class="clip">🎹 Melody</div>
+
+</div>
+<!-- ===================================== -->
+<!-- EXPORT PROJECT -->
+<!-- ===================================== -->
+
+<h2 class="sectionTitle">💾 Export Project</h2>
+
+<div class="panel">
+
+<button onclick="renderProject()"
+style="
+padding:15px 35px;
+border:none;
+border-radius:12px;
+background:#ff9800;
+color:white;
+font-size:18px;
+cursor:pointer;
+">
+🎧 Render Final Track
+</button>
+
+<div id="renderPanel" class="renderPanel">
+
+<h3>Rendering...</h3>
+
+<div class="progress">
+
+<div id="renderBar" class="bar"></div>
+
+</div>
+
+</div>
+
+<div id="finalMessage" class="message">
+
+🎉 Mission Complete!<br><br>
+
+Producer Hetav ❤️
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- AUDIO FILES -->
+<!-- ===================================== -->
+
+<audio id="kick" src="music/kick.mp3"></audio>
+
+<audio id="snare" src="music/snare.mp3"></audio>
+
+<audio id="hihat" src="music/hihat.mp3"></audio>
+
+<audio id="bass" src="music/bass.mp3"></audio>
+
+<audio id="piano1" src="music/piano1.mp3"></audio>
+
+<audio id="piano2" src="music/piano2.mp3"></audio>
+
+<audio id="piano3" src="music/piano3.mp3"></audio>
+
+<audio id="piano4" src="music/piano4.mp3"></audio>
+
+<audio id="piano5" src="music/piano5.mp3"></audio>
+
+<audio id="piano6" src="music/piano6.mp3"></audio>
+
+<audio id="piano7" src="music/piano7.mp3"></audio>
+
+<audio id="drop" src="music/drop.mp3"></audio>
+
+<audio id="victory" src="music/victory.mp3"></audio>
+
+<audio id="memory" src="music/memory.mp3" loop></audio>
+
+<script src="studio.js"></script>
+
+</body>
+</html>
