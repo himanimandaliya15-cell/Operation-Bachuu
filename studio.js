@@ -357,7 +357,7 @@ for(let i=0;i<120;i++){
 
 let conf=document.createElement("div");
 
-conf.innerHTML=["🎉","✨","🎵","",""][Math.floor(Math.random()*4)];
+conf.innerHTML=["🎉","✨","🎵","","","",][Math.floor(Math.random()*4)];
 
 conf.style.position="fixed";
 
