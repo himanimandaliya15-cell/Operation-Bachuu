@@ -95,11 +95,121 @@ audio.play();
 
 }
 
-// Piano Keys
+// ===========================================
+// PIANO — WEB AUDIO SYNTH
+// ===========================================
+
+let pianoAudioContext = null;
+
+const pianoNotes = {
+
+    piano1: 261.63, // C
+    piano2: 277.18, // C#
+    piano3: 293.66, // D
+    piano4: 311.13, // D#
+    piano5: 329.63, // E
+    piano6: 349.23, // F
+    piano7: 369.99  // F#
+};
+
+
+// Create Audio Context
+
+function getPianoAudio(){
+
+    if(!pianoAudioContext){
+
+        pianoAudioContext =
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+
+    }
+
+    return pianoAudioContext;
+}
+
+
+// Play Piano Note
 
 function playPiano(id){
 
-playSound(id);
+    const audio =
+        getPianoAudio();
+
+    const frequency =
+        pianoNotes[id];
+
+    if(!frequency) return;
+
+
+    // Resume audio if browser suspended it
+
+    if(audio.state === "suspended"){
+
+        audio.resume();
+
+    }
+
+
+    // Oscillator
+
+    const oscillator =
+        audio.createOscillator();
+
+
+    // Volume
+
+    const gain =
+        audio.createGain();
+
+
+    // Slightly piano-like sound
+
+    oscillator.type = "triangle";
+
+    oscillator.frequency.value =
+        frequency;
+
+
+    // Start quiet
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        audio.currentTime
+    );
+
+
+    // Attack
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.35,
+        audio.currentTime + 0.02
+    );
+
+
+    // Decay
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audio.currentTime + 1.2
+    );
+
+
+    // Connect
+
+    oscillator.connect(gain);
+
+    gain.connect(audio.destination);
+
+
+    // Play
+
+    oscillator.start();
+
+
+    oscillator.stop(
+        audio.currentTime + 1.3
+    );
 
 }
 
@@ -357,7 +467,7 @@ for(let i=0;i<120;i++){
 
 let conf=document.createElement("div");
 
-conf.innerHTML=["🎉","✨","🎵"][Math.floor(Math.random()*4)];
+conf.innerHTML=["🎉","✨","🎵"][Math.floor(Math.random()*3)];
 
 conf.style.position="fixed";
 
